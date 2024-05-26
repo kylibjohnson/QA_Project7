@@ -16,7 +16,7 @@ test('status code should be 200', async () => {
 });
 
 
-test('', async () => {
+test('kit should be deleted', async () => {
 	let actualResponseBody;
     try {
 		const response = await fetch(`${config.API_URL}/api/`, {
@@ -26,5 +26,5 @@ test('', async () => {
 	} catch (error) {
 		console.error(error);
 	}
-	expect (actualResponseBody).toContain();
+	expect (actualResponseBody[]).toContain();
 });

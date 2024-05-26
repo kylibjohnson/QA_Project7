@@ -36,5 +36,5 @@ test('', async () => {
 	} catch (error) {
 		console.error(error);
 	}
-	expect(actualResponseBody).toContain();
+	expect(actualResponseBody[]).toContain();
 });
