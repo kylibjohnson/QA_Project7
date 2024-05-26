@@ -5,6 +5,24 @@ const requestBody = {
     // put your body here
 }
 
+test('status code should be 200', async () => {
+	let actualStatusCode
+    try {
+		const response = await fetch(`${config.API_URL}/api/v1/`, {
+			method: 'POST',
+			headers: {
+			'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(requestBody)
+		});
+		actualStatusCode = response.status;
+		console.log(actualStatusCode);
+	} catch (error) {
+		console.error(error);
+	}
+	expect(actualStatusCode).toBe(200)
+});
+
 test('', async () => {
     try {
 		const response = await fetch(`${config.API_URL}/your/endpoint`, {

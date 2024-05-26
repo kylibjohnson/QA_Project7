@@ -13,3 +13,14 @@ test('status code should be 200', async () => {
 	expect (actualStatusCode).toBe(200)
 });
 
+test('', async () => {
+	let actualResponseBody
+	try {
+		const response = await fetch(`${config.API_URL}/api/v1/warehouses`);
+		actualResponseBody = await response.json();
+		console.log(actualResponseBody);
+	} catch (error) {
+		console.error(error);
+	}
+	expect(actualResponseBody).toContain('')
+});
