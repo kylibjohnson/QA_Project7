@@ -14,7 +14,7 @@ test('status code should be 200', async () => {
 });
 
 test('', async () => {
-	let actualResponseBody
+	let actualResponseBody;
 	try {
 		const response = await fetch(`${config.API_URL}/api/v1/warehouses`);
 		actualResponseBody = await response.json();

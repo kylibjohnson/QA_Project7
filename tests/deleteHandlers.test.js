@@ -17,11 +17,14 @@ test('status code should be 200', async () => {
 
 
 test('', async () => {
+	let actualResponseBody;
     try {
-		const response = await fetch(`${config.API_URL}/your/endpoint`, {
+		const response = await fetch(`${config.API_URL}/api/`, {
 			method: 'DELETE',
 		});
+		actualResponseBody = await response.json();
 	} catch (error) {
 		console.error(error);
 	}
+	expect (actualResponseBody).toContain();
 });
