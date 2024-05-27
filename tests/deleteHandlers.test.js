@@ -4,27 +4,26 @@ const config = require('../config');
 test('status code should be 200', async () => {
 	let actualStatusCode;
     try {
-		const response = await fetch(`${config.API_URL}/api/v1/`, {
+		const Response = await fetch(`${config.API_URL}/api/v1/orders/2`, {
 			method: 'DELETE',
-		});
-		actualStatusCode = response.status;
-		console.log(actualStatusCode);
-	} catch (error) {
-		console.error(error);
-	}
-	expect(actualStatusCode).toBe(200)
-});
+		  });
+		  actualResponseBody= await response.json();
+		} catch (error) {
+			console.error(error);
+		}
+		  expect(actualStatusCode).toBe(200);
+		}	  
 
-
-test('kit should be deleted', async () => {
+test('order 2 should be deleted', async () => {
 	let actualResponseBody;
     try {
-		const response = await fetch(`${config.API_URL}/api/`, {
+		const response = await fetch(`${config.API_URL}/api/v1/orders//api/v1/orders/${orderId}`, {
 			method: 'DELETE',
 		});
 		actualResponseBody = await response.json();
+		console.log(actualResponseBody);
 	} catch (error) {
 		console.error(error);
 	}
-	expect (actualResponseBody[]).toContain();
+	expect(actualResponseBody.ok) .toBe('true')
 });
