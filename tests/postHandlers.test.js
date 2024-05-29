@@ -2,28 +2,22 @@
 const config = require('../config');
 
 const requestBody = {
-	"productsList": [
-        {
-            "id": 1,
-            "quantity": 2
-        },
-        {
-            "id": 6,
-            "quantity": 2
-        }
-    ]
-	  
+		"products": [
+			{
+				"id": 5,
+				"quantity": 1
+			},
+			{
+				"id": 4,
+				"quantity": 5
+			}
+		]
 }
-testCreateKit() {
-	
-	let createResponse = sendPostRequest('${config.API_URL}/api/v1/kits', {2});
-	assert(createResponse.status, 201); 
-	let kitId = createResponse.body.id;
 
-test('response body should contain 'red caviar'', async () => {
+test('checking the availability of goods in warehouses', async () => {
 	let actualResponseBody;
     try {
-		const response = await fetch(`${config.API_URL}/api/v1/kits/2`, {
+		const response = await fetch(`${config.API_URL}/api/v1/warehouses/check`, {
 			method: 'POST',
 			headers: {
 			'Content-Type': 'application/json'
@@ -35,13 +29,19 @@ test('response body should contain 'red caviar'', async () => {
 	} catch (error) {
 		console.error(error);
 	}
-	expect(actualResponseBody['productsList']) .toContain('Red caviar')
+	let spriteAvailable = false;
+	for (const warehouse in actualResponseBody) {
+		if (actualResponseBody[warehouse]['Sprite Soft Drink']) {
+			spriteAvailable = true;
+		}
+	}
+	expect(spriteAvailable).toBe(true);
 });
 
 test('status code should be 200', async () => {
 	let actualStatusCode
     try {
-		const response = await fetch(`${config.API_URL}/api/v1/kits/2`, {
+		const response = await fetch(`${config.API_URL}/api/v1/warehouses/check`, {
 			method: 'POST',
 			headers: {
 			'Content-Type': 'application/json'
