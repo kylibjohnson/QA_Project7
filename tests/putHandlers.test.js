@@ -2,30 +2,13 @@
 const config = require('../config');
 
 const requestBody = {
-		"productsList": [
-			{
-				"id": 1,
-				"quantity": 4
-			},
-			{
-				"id": 5,
-				"quantity": 2
-			},
-			{
-				"id": 3,
-				"quantity": 1
-			},
-			{
-				"id": 4,
-				"quantity": 1
-			}
-		]
-}
+		"price": 175
+	}
 
 test('status code should be 200', async () => {
 	let actualStatusCode;
     try {
-		const response = await fetch(`${config.API_URL}/api/v1/orders/2`, {
+		const response = await fetch(`${config.API_URL}/api/v1/products/7`, {
 			method: 'PUT',
 			headers: {
 			'Content-Type': 'application/json'
@@ -41,10 +24,10 @@ test('status code should be 200', async () => {
 });
 
 
-test('response body should ', async () => {
+test('response body should respond true when changing the price of a grocery item', async () => {
 	let actualResponseBody;
     try {
-		const response = await fetch(`${config.API_URL}/api/v1/orders/2`, {
+		const response = await fetch(`${config.API_URL}/api/v1/products/7`, {
 			method: 'PUT',
 			headers: {
 			'Content-Type': 'application/json'
@@ -56,5 +39,5 @@ test('response body should ', async () => {
 	} catch (error) {
 		console.error(error);
 	}
-	expect(actualResponseBody).toContain('')
+	expect(actualResponseBody['ok']).toBe(true)
 });
