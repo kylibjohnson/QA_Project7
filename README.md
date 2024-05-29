@@ -7,7 +7,7 @@ The purpose of these tests are to check the response status code and to parse th
 The documentation sources used for reference are the apiDoc (URL /docs/) and swagger (URL /api/swagger) to determine what kind of tests can be created for endpoints of the Urban Grocers site. The tests are conducted in Visual Studio Code and also ran through Postman, when needed.
 
 ## TASK 1 | GET
-In this task, I am checking the GET request by getting a list of warehouses using the endpoint /api/v1/warehouse. Our first test will check that the response code returns a '200 OK' with a list of the warehouses. To do this, enter the following code in the body under the getHandlers.test.js folder. Then run the code in the terminal using command 'npx jest'
+In this task, I am checking the GET request by getting a list of warehouses using the endpoint /api/v1/warehouses. Our first test will check that the response code returns a '200 OK' with a list of the warehouses. To do this, enter the following code in the body under the getHandlers.test.js folder. Then run the code in the terminal using command 'npx jest'
     
     const config = require('../config');
         test('status code should be 200', async () => {
@@ -22,7 +22,7 @@ In this task, I am checking the GET request by getting a list of warehouses usin
             expect (actualStatusCode).toBe(200)
         });
 
-For the second test, I am checking that the response body contains the name of one of the warhouses,'Big World', that should be listed. Enter the following code beneath the first test code and run it in the terminal using 'npx jest' 
+For the second test, I am checking that the response body contains the name of one of the warhouses,'Big World' when sending a GET request with the endpoint /api/v1/warehouses. Enter the following code beneath the first test code and run it in the terminal using 'npx jest' 
 
     test('response body should contain "Big World" ', async () => {
         let actualResponseBody;
@@ -75,7 +75,7 @@ In this task, I am checking the availabilty of goods in the warehouses using a P
             expect(spriteAvailable).toBe(true);
         });
 
-The second test will check that the response code returns a '200 OK'. Enter the following code beneath the first test code and run it in the terminal using 'npx jest' 
+The second test will check that the response code returns a '200 OK' when sending a POST request with the endpoint /api/v1/warehouses/check. Enter the following code beneath the first test code and run it in the terminal using 'npx jest' 
 
     test('status code should be 200', async () => {
         let actualStatusCode
@@ -99,6 +99,9 @@ The second test will check that the response code returns a '200 OK'. Enter the 
 
 To do this, enter the following code in the body under the putHandlers.test.js folder then run the code in the terminal using command 'npx jest'
 
+
+The second test will check that the response code returns a '200 OK' when sending the PUT request with the endpoint /api/v1/orders. Enter the following code beneath the first test code and run it in the terminal using 'npx jest' 
+
     test('status code should be 200', async () => {
         let actualStatusCode;
         try {
@@ -120,12 +123,37 @@ To do this, enter the following code in the body under the putHandlers.test.js f
 
 
 ## TASK 4 | DELETE
+In this task I am testing the deletion of a kit using the DELETE request with the endpoint /api/v1/kits/:id. In order to test the deletion of a kit, a kit must first be created. To do this, enter the following code in the body under the deleteHandlers.test.js folder then run the code in the terminal using command 'npx jest'
 
-To do this, enter the following code in the body under the deleteHandlers.test.js folder then run the code in the terminal using command 'npx jest'
+    const config = require('../config');
+        
+    test('kit should be created and then deleted', async () => {
+        let kitId;
+        // Create a new kit
+        const createRequestBody = {
+            "name": "sample kit",
+            "cardId": 7
+        };
+        try {
+            const createResponse = await fetch(`${config.API_URL}/api/v1/kits`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(createRequestBody)
+            });
+            expect(createResponse.status).toBe(201);
 
-    test('status code should be 200', async () => {
+            // Get the created kit ID from the response body
+            const createResponseBody = await createResponse.json();
+            kitId = createResponseBody.id;
+
+            console.log('Kit created with ID:', kitId);
+        } catch (error) {
+            console.error(error);
+        }
+        // Delete the kit
         let actualResponseBody;
-        const kitId = 7;
         try {
             const deleteResponse = await fetch(`${config.API_URL}/api/v1/kits/${kitId}`, {
                 method: 'DELETE',
@@ -137,9 +165,25 @@ To do this, enter the following code in the body under the deleteHandlers.test.j
         } catch (error) {
             console.error(error);
         }
-        
-        });
+        expect(actualResponseBody['ok']).toBe(true);
+    });
 
+The second test will check that the response code returns a '200 OK' when sending a DELETE request with endpoint /api/v1/kits/:id. Enter the following code beneath the first test code and run it in the terminal using 'npx jest' 
+
+    test('status code should be 200', async () => {
+        let actualStatusCode;
+        const kitId = 7;
+        try {
+            const response = await fetch(`${config.API_URL}/api/v1/kits/${kitId}`, {
+                method: 'DELETE',
+            });
+            actualStatusCode = response.status;  
+            console.log(actualStatusCode);
+        } catch (error) {
+            console.error(error);
+        }
+        expect(actualStatusCode).toBe(200);  
+    });
 
 
 testCreateKit() {
