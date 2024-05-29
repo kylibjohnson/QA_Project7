@@ -11,8 +11,8 @@ test('status code should be 200', async () => {
 		} catch (error) {
 			console.error(error);
 		}
-		  expect(actualStatusCode).toBe(200);
-		}	  
+		  expect(actualStatusCode).toBe(200)
+});	  
 
 test('order 2 should be deleted', async () => {
 	let actualResponseBody;
