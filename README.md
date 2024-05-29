@@ -9,18 +9,18 @@ The documentation sources used for reference are the apiDoc (URL /docs/) and swa
 ## TASK 1 | GET
 In this task, I am checking the GET request by getting a list of warehouses using the endpoint /api/v1/warehouse. Our first test will check that the response code returns a '200 OK' with a list of the warehouses. To do this, enter the following code in the body under the getHandlers.test.js folder. Then run the code in the terminal using command 'npx jest'
     
-const config = require('../config');
-    test('status code should be 200', async () => {
-        let actualStatusCode;
-        try {
-            const response = await fetch(`${config.API_URL}/api/v1/warehouses`);
-            actualStatusCode = response.status;
-            console.log(actualStatusCode);
-        } catch (error) {
-            console.error(error);
-        }
-        expect (actualStatusCode).toBe(200)
-    });
+    const config = require('../config');
+        test('status code should be 200', async () => {
+            let actualStatusCode;
+            try {
+                const response = await fetch(`${config.API_URL}/api/v1/warehouses`);
+                actualStatusCode = response.status;
+                console.log(actualStatusCode);
+            } catch (error) {
+                console.error(error);
+            }
+            expect (actualStatusCode).toBe(200)
+        });
 
 For the second test, I am checking that the response body contains the name of one of the warhouses,'Big World', that should be listed. Enter the following code beneath the first test code and run it in the terminal using 'npx jest' 
 
@@ -123,18 +123,18 @@ To do this, enter the following code in the body under the putHandlers.test.js f
 
 To do this, enter the following code in the body under the deleteHandlers.test.js folder then run the code in the terminal using command 'npx jest'
 
-test('status code should be 200', async () => {
-	let actualStatusCode;
-    try {
-		const Response = await fetch(`${config.API_URL}/api/v1/orders/2`, {
-			method: 'DELETE',
-		  });
-		  actualResponseBody= await response.json();
-		} catch (error) {
-			console.error(error);
-		}
-		  expect(actualStatusCode).toBe(200)
-});	
+    test('status code should be 200', async () => {
+        let actualStatusCode;
+        try {
+            const Response = await fetch(`${config.API_URL}/api/v1/orders/2`, {
+                method: 'DELETE',
+            });
+            actualResponseBody= await response.json();
+            } catch (error) {
+                console.error(error);
+            }
+            expect(actualStatusCode).toBe(200)
+    });	
 
 
 
