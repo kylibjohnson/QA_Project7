@@ -124,17 +124,21 @@ To do this, enter the following code in the body under the putHandlers.test.js f
 To do this, enter the following code in the body under the deleteHandlers.test.js folder then run the code in the terminal using command 'npx jest'
 
     test('status code should be 200', async () => {
-        let actualStatusCode;
+        let actualResponseBody;
+        const kitId = 7;
         try {
-            const Response = await fetch(`${config.API_URL}/api/v1/orders/2`, {
+            const deleteResponse = await fetch(`${config.API_URL}/api/v1/kits/${kitId}`, {
                 method: 'DELETE',
             });
-            actualResponseBody= await response.json();
-            } catch (error) {
-                console.error(error);
-            }
-            expect(actualStatusCode).toBe(200)
-    });	
+            expect(deleteResponse.status).toBe(200);
+
+            actualResponseBody = await deleteResponse.json();
+            console.log(actualResponseBody);
+        } catch (error) {
+            console.error(error);
+        }
+        
+        });
 
 
 
