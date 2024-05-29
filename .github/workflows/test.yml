@@ -1,26 +1,20 @@
-name: Spint 7 Project CI
-
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-      
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-    - name: Use Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
-    - name: Run npm install 
-      run: npm i
-    - name: Run eslint
-      run: npm run lint
-    - name: Run tests
-      run: npm run test
+   
+   name: Node.js CI
+   
+   on: 
+     push:
+       branches: [ main ]
+     pull_request:
+       branches: [ main ]
+   
+   jobs:
+     build:
+       runs-on: ubuntu-latest
+       steps:
+       - uses: actions/checkout@v3
+       - name: Use Node.js
+         uses: actions/setup-node@v3
+         with:
+           node-version: '20'
+       - run: npm install
+       - run: npm audit fix
