@@ -96,31 +96,51 @@ The second test will check that the response code returns a '200 OK' when sendin
         });
 
 ## TASK 3 | PUT
+This task checks the PUT request of the endpoint /api/v1/products/:id when changing the price of a grocery item. For this test, the id number being used is 7 and represents "Potato Chips - Classic Salted", and I am changing the price to '10'. To do this, enter the following code in the body under the putHandlers.test.js folder then run the code in the terminal using command 'npx jest'
 
-To do this, enter the following code in the body under the putHandlers.test.js folder then run the code in the terminal using command 'npx jest'
+    const config = require('../config');
 
+    const requestBody = {
+            "price": 10
+        }
 
-The second test will check that the response code returns a '200 OK' when sending the PUT request with the endpoint /api/v1/orders. Enter the following code beneath the first test code and run it in the terminal using 'npx jest' 
-
-    test('status code should be 200', async () => {
-        let actualStatusCode;
+    test('response body should respond true when changing the price of a grocery item', async () => {
+        let actualResponseBody;
         try {
-            const response = await fetch(`${config.API_URL}/api/v1/orders/2`, {
+            const response = await fetch(`${config.API_URL}/api/v1/products/7`, {
                 method: 'PUT',
                 headers: {
                 'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(requestBody)
             });
-            actualStatusCode = response.status;
-            console.log(actualStatusCode);
+            actualResponseBody = await response.json();
+            console.log (actualResponseBody);
         } catch (error) {
             console.error(error);
         }
-        expect(actualStatusCode) .toBe(200)
+        expect(actualResponseBody['ok']).toBe(true)
     });
 
+The second test will check that the response code returns a '200 OK' when sending the PUT request with the endpoint /api/v1/products/:id. Enter the following code beneath the first test code and run it in the terminal using 'npx jest' 
 
+   test('status code should be 200', async () => {
+	let actualStatusCode;
+    try {
+		const response = await fetch(`${config.API_URL}/api/v1/products/7`, {
+			method: 'PUT',
+			headers: {
+			'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(requestBody)
+		});
+		actualStatusCode = response.status;
+		console.log(actualStatusCode);
+	} catch (error) {
+		console.error(error);
+	}
+	expect(actualStatusCode) .toBe(200)
+});
 
 ## TASK 4 | DELETE
 In this task I am testing the deletion of a kit using the DELETE request with the endpoint /api/v1/kits/:id. In order to test the deletion of a kit, a kit must first be created. To do this, enter the following code in the body under the deleteHandlers.test.js folder then run the code in the terminal using command 'npx jest'
@@ -184,10 +204,3 @@ The second test will check that the response code returns a '200 OK' when sendin
         }
         expect(actualStatusCode).toBe(200);  
     });
-
-
-testCreateKit() {
-	
-	let createResponse = sendPostRequest('${config.API_URL}/api/v1/kits', {2});
-	assert(createResponse.status, 201); 
-	let kitId = createResponse.body.id;
