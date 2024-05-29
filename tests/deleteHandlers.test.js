@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-undef
 const config = require('../config');
-	  
+      
 test('kit should be created and then deleted', async () => {
     let kitId;
     // Create a new kit
@@ -43,16 +43,16 @@ test('kit should be created and then deleted', async () => {
 });
 
 test('status code should be 200', async () => {
-	let actualStatusCode;
-	const kitId = 7;
-	try {
-		const response = await fetch(`${config.API_URL}/api/v1/kits/${kitId}`, {
-			method: 'DELETE',
-		});
-		actualStatusCode = response.status;  
-		console.log(actualStatusCode);
-	} catch (error) {
-		console.error(error);
-	}
-	expect(actualStatusCode).toBe(200);  
+    let actualStatusCode;
+    const kitId = 7;
+    try {
+        const response = await fetch(`${config.API_URL}/api/v1/kits/${kitId}`, {
+            method: 'DELETE',
+        });
+        actualStatusCode = response.status;  
+        console.log(actualStatusCode);
+    } catch (error) {
+        console.error(error);
+    }
+    expect(actualStatusCode).toBe(200);  
 });
